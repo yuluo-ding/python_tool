@@ -1,0 +1,140 @@
+=========================
+time:2016-08-10 09:38:39,950 
+logger:log 
+level:ERROR 
+file:checkfile.py 
+fun:error 
+lineno:68 
+message:Traceback (most recent call last):
+  File "D:/xuexi/Python/CKJson/checkfile.py", line 96, in <module>
+    data = json.load(json_file)
+  File "C:\Python27\lib\json\__init__.py", line 291, in load
+    **kw)
+  File "C:\Python27\lib\json\__init__.py", line 339, in loads
+    return _default_decoder.decode(s)
+  File "C:\Python27\lib\json\decoder.py", line 364, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Python27\lib\json\decoder.py", line 380, in raw_decode
+    obj, end = self.scan_once(s, idx)
+ValueError: Expecting , delimiter: line 15 column 3 (char 216)
+
+=========================
+time:2016-08-10 09:39:34,072 
+logger:log 
+level:ERROR 
+file:checkfile.py 
+fun:error 
+lineno:68 
+message:Traceback (most recent call last):
+  File "D:/xuexi/Python/CKJson/checkfile.py", line 96, in <module>
+    data = json.load(json_file)
+  File "C:\Python27\lib\json\__init__.py", line 291, in load
+    **kw)
+  File "C:\Python27\lib\json\__init__.py", line 339, in loads
+    return _default_decoder.decode(s)
+  File "C:\Python27\lib\json\decoder.py", line 364, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Python27\lib\json\decoder.py", line 380, in raw_decode
+    obj, end = self.scan_once(s, idx)
+ValueError: Expecting , delimiter: line 15 column 3 (char 212)
+
+=========================
+time:2016-08-10 09:42:11,108 
+logger:log 
+level:ERROR 
+file:checkfile.py 
+fun:error 
+lineno:68 
+message:Traceback (most recent call last):
+  File "D:/xuexi/Python/CKJson/checkfile.py", line 96, in <module>
+    data = json.load(json_file)
+  File "C:\Python27\lib\json\__init__.py", line 291, in load
+    **kw)
+  File "C:\Python27\lib\json\__init__.py", line 339, in loads
+    return _default_decoder.decode(s)
+  File "C:\Python27\lib\json\decoder.py", line 364, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Python27\lib\json\decoder.py", line 380, in raw_decode
+    obj, end = self.scan_once(s, idx)
+ValueError: Expecting , delimiter: line 15 column 3 (char 212)
+
+=========================
+time:2016-08-10 09:42:34,884 
+logger:log 
+level:ERROR 
+file:checkfile.py 
+fun:error 
+lineno:68 
+message:Traceback (most recent call last):
+  File "D:/xuexi/Python/CKJson/checkfile.py", line 96, in <module>
+    data = json.load(json_file)
+  File "C:\Python27\lib\json\__init__.py", line 291, in load
+    **kw)
+  File "C:\Python27\lib\json\__init__.py", line 339, in loads
+    return _default_decoder.decode(s)
+  File "C:\Python27\lib\json\decoder.py", line 364, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Python27\lib\json\decoder.py", line 380, in raw_decode
+    obj, end = self.scan_once(s, idx)
+ValueError: Expecting , delimiter: line 15 column 3 (char 212)
+
+=========================
+time:2016-08-10 09:42:34,885 
+logger:log 
+level:ERROR 
+file:checkfile.py 
+fun:error 
+lineno:68 
+message:Traceback (most recent call last):
+  File "D:/xuexi/Python/CKJson/checkfile.py", line 96, in <module>
+    data = json.load(json_file)
+  File "C:\Python27\lib\json\__init__.py", line 291, in load
+    **kw)
+  File "C:\Python27\lib\json\__init__.py", line 339, in loads
+    return _default_decoder.decode(s)
+  File "C:\Python27\lib\json\decoder.py", line 364, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Python27\lib\json\decoder.py", line 380, in raw_decode
+    obj, end = self.scan_once(s, idx)
+ValueError: Expecting , delimiter: line 15 column 3 (char 212)
+
+=========================
+time:2016-08-10 09:49:36,996 
+logger:log 
+level:ERROR 
+file:checkfile.py 
+fun:error 
+lineno:68 
+message:Traceback (most recent call last):
+  File "D:/xuexi/Python/CKJson/checkfile.py", line 96, in <module>
+    data = json.load(json_file)
+  File "C:\Python27\lib\json\__init__.py", line 291, in load
+    **kw)
+  File "C:\Python27\lib\json\__init__.py", line 339, in loads
+    return _default_decoder.decode(s)
+  File "C:\Python27\lib\json\decoder.py", line 364, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Python27\lib\json\decoder.py", line 380, in raw_decode
+    obj, end = self.scan_once(s, idx)
+ValueError: Expecting , delimiter: line 15 column 3 (char 212)
+
+=========================
+time:2016-08-10 09:49:36,996 
+logger:log 
+level:ERROR 
+file:checkfile.py 
+fun:error 
+lineno:68 
+message:Traceback (most recent call last):
+  File "D:/xuexi/Python/CKJson/checkfile.py", line 96, in <module>
+    data = json.load(json_file)
+  File "C:\Python27\lib\json\__init__.py", line 291, in load
+    **kw)
+  File "C:\Python27\lib\json\__init__.py", line 339, in loads
+    return _default_decoder.decode(s)
+  File "C:\Python27\lib\json\decoder.py", line 364, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Python27\lib\json\decoder.py", line 380, in raw_decode
+    obj, end = self.scan_once(s, idx)
+ValueError: Expecting , delimiter: line 15 column 3 (char 212)
+

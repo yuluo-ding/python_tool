@@ -1,0 +1,23 @@
+{"yihaodian":
+  {
+    "bin":["testone", "testtwo"],
+    "config":["one", "two", "three"],
+    "input_outputs":
+            [
+              {
+                "input":["192.168.12.32_pc.cap"],
+                "outputs":
+                {
+                  "dir":"sns:test",
+                  "files":
+                          [
+                            {"test":1},
+                            {"test":1}
+                          ]
+                }
+              }
+
+            ]
+  }
+
+}
