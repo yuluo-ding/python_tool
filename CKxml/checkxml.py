@@ -42,8 +42,8 @@ xml_doc="""
 
 """
 
-soup = BeautifulSoup(xml_doc)
+soup = BeautifulSoup(html_doc, 'xml')
 
 # print soup.prettify()
-print soup.SITE
-# print soup.SITE['DESCRIPTION']
+print soup.p['class']
+print soup.SITE['DESCRIPTION']
