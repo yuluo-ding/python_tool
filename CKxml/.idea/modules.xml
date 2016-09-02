@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../CKJson/.idea/CKJson.iml" filepath="$PROJECT_DIR$/../CKJson/.idea/CKJson.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/CKxml.iml" filepath="$PROJECT_DIR$/.idea/CKxml.iml" />
     </modules>
   </component>
