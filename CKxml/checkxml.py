@@ -12,6 +12,6 @@ soup = BeautifulSoup(file, 'xml')
 des = soup.SITE['DESCRIPTION']
 description = urllib.unquote(des.encode("UTF-8"))
 
-print type(description)
+print(type(description))
 print description
 
