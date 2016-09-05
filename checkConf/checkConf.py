@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 
 file = open("yj_hp_in.conf")
 
+
 soup = BeautifulSoup(file, 'xml')
 
 des = soup.SITE['DESCRIPTION']
