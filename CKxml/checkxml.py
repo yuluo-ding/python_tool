@@ -10,8 +10,8 @@ file = open("yj_hp_in.conf")
 soup = BeautifulSoup(file, 'xml')
 
 des = soup.SITE['DESCRIPTION']
-de = urllib.unquote(des.encode("UTF-8"))
+description = urllib.unquote(des.encode("UTF-8"))
 
-print type(des)
-print de
+print type(description)
+print description
 
