@@ -7,13 +7,25 @@ from bs4 import BeautifulSoup
 
 file = open("yj_hp_in.conf")
 
-
 soup = BeautifulSoup(file, 'xml')
+tags = soup.SITE
+print tags.attrs
 
-des = soup.SITE['DESCRIPTION']
-description = urllib.unquote(des.encode("UTF-8"))
+des_txt = open("description", 'w')
+des_txt.close()
 
-print type(description)
-print description
-print soup.name
+for tag in soup.find_all(["SITE"]):
+
+    domain = tag['DOMAIN']
+    dos = urllib.unquote(domain.encode("UTF-8"))
+
+    description = tag['DESCRIPTION']
+    des = urllib.unquote(description.encode("UTF-8"))
+    print dos + " " + des
+
+    des_txt = open("description", 'a')
+    des_txt.write( dos + " " + des + "\n")
+
+des_txt.close()
+
 
