@@ -11,7 +11,7 @@ soup = BeautifulSoup(file, 'xml')
 tags = soup.SITE
 print tags.attrs
 
-des_txt = open("description", 'w')
+des_txt = open("description.txt", 'w')
 des_txt.close()
 
 for tag in soup.find_all(["SITE"]):
@@ -23,9 +23,7 @@ for tag in soup.find_all(["SITE"]):
     des = urllib.unquote(description.encode("UTF-8"))
     print dos + " " + des
 
-    des_txt = open("description", 'a')
+    des_txt = open("description.txt", 'a')
     des_txt.write( dos + " " + des + "\n")
 
 des_txt.close()
-
-
