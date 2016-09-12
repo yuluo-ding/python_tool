@@ -58,7 +58,7 @@ class Site:
         return self._input_output
 
 
-def generator(website):
+def generator():
     json_file = Site.get_web_dir() + Site.get_name() + ".json"
     file = open(json_file, "w")
     content = Site.get_input_output()
