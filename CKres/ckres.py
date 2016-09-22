@@ -16,8 +16,9 @@ def creat_file_dir():
 
     shutil.rmtree(r'result')
     for list in file_name:
-        print type(list)
-        os.makedirs('result/' + list)
+        print list
+        list_name = list[:-4]
+        os.makedirs('result/' + list_name)
 
 
 
