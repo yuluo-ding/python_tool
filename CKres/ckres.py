@@ -103,31 +103,91 @@ def main():
     file_content_list = ""
     files = {}
     site_type = ""
+    client_ip = brand = platform = version = action = ''
 
     directories = [name for name in os.listdir('result/') if os.path.isdir(os.path.join('result/', name))]
     capture_names = []
     counter = 0
+    # 列出
     for d in directories:
         sub = 'result/' + directories[counter] + '/'
-        # print sub
+        # result目录下每个文件夹的名字
+        file_name_list = directories[counter]
+        # 打印出result目录下每个目录的名称
+        print sub
         capture_names = [name for name in os.listdir(sub) if os.path.isdir(os.path.join(sub))]
-        print capture_names
+        # 打印出每个目录下的文件名称的列表
+        # print capture_names
 
         capture_count = 0
         for c in capture_names:
-            name = capture_names[capture_count]
-            # print ("~~~~~~~~~~~~~~~~~~~~~~")
-            print "\t"+"Capture name:  " + name
-            input = name
-            sheet_directory = 'result/' + directories[counter] + name
-            print sheet_directory
-            # sheet_names = [name for name in os.listdir(sheet_directory) if os.path.isfile(sheet_directory)]
-            # print sheet_names
+            sheet_file_dir = sub + capture_names[capture_count]
+            print sheet_file_dir
+            sheet_file = open(sheet_file_dir, "rt")
 
+            sheet_content = sheet_file.readlines()
+            line_counter = 0
+            for line in sheet_content:
+                if line.find("Protocol") != -1:
+                    protocol = str(line)[0:len(str(line))-1]
+                    print line
+                elif line.find("Domain") != -1:
+                    domain = str(line)[0:len(str(line))-1]
+                elif line.find("XX-Type") != -1:
+                    action_type = str(line)[0:len(str(line))-1]
+                    site_type = action_type[8:]
+                line_counter += 1
+
+            file_content_list = protocol + " " + domain + " " + action_type
+            file_content.append(file_content_list)
 
             capture_count += 1
 
+            # name = capture_names[capture_count]
+            # # print ("~~~~~~~~~~~~~~~~~~~~~~")
+            # print "\tCapture name:  " + name
+            # input = name
+            #
+            # sheet_directory = 'result/' + directories[counter]
+            # # print sheet_directory
+        for i in file_content:
+            if file_content.count(i) > 0:
+                files[i] = file_content.count(i)
+        input_output[input] = files
+        file_content = []
+        files = {}
+
+
+        name_counter = 0
+        name_divider = 0
+        for b in file_name_list:
+            if file_name_list[name_counter] == '_':
+                name_divider += 1
+            if file_name_list[name_counter] != '_':
+                if name_divider == 0:
+                    client_ip += file_name_list[name_counter]
+                elif name_divider == 1:
+                    brand += file_name_list[name_counter]
+                    xx_name = brand
+                elif name_divider == 2:
+                    platform += file_name_list[name_counter]
+                else:
+                    action += file_name_list[name_counter]
+            name_counter += 1
+
+            # platform & version to be read in
+        print("\n\tIP:\t" + client_ip)
+        print("\tBrand:\t" + brand)
+        print("\tType:\t" + brand)
+        print("\tPlatform:\t" + platform)
+        print("\tVersion:\t" + version)
+        print("\tAction:\t" + action)
+
+        client_ip = brand = platform = version = action = ''
+        capture_count += 1
+
         counter += 1
+
 if __name__ == '__main__':
     # creat_file_dir()
     main()
