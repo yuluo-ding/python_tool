@@ -5,6 +5,7 @@ import os
 import glob
 import shutil
 
+
 def creat_file_dir():
     if os.path.isdir('result'):
         pass
@@ -12,14 +13,21 @@ def creat_file_dir():
         os.mkdir('result/')
 
     file_name = glob.glob('*.cap')
-    print file_name
+    # print file_name
 
     shutil.rmtree(r'result')
     for list in file_name:
-        print list
+        # print list
         list_name = list[:-4]
         os.makedirs('result/' + list_name)
 
+
+
+
+def count_file():
+    file_name = [name for name in os.listdir('result/') if os.path.isdir(os.path.join('result/', name))]
+    print file_name
+    print type(file_name)
 
 
 class Site:
@@ -87,5 +95,39 @@ def generator():
             print c
 
 
+def main():
+    name = ""
+    input_output = {}
+    input = ""
+    file_content = []
+    file_content_list = ""
+    files = {}
+    site_type = ""
+
+    directories = [name for name in os.listdir('result/') if os.path.isdir(os.path.join('result/', name))]
+    capture_names = []
+    counter = 0
+    for d in directories:
+        sub = 'result/' + directories[counter] + '/'
+        # print sub
+        capture_names = [name for name in os.listdir(sub) if os.path.isdir(os.path.join(sub))]
+        print capture_names
+
+        capture_count = 0
+        for c in capture_names:
+            name = capture_names[capture_count]
+            # print ("~~~~~~~~~~~~~~~~~~~~~~")
+            print "\t"+"Capture name:  " + name
+            input = name
+            sheet_directory = 'result/' + directories[counter] + name
+            print sheet_directory
+            # sheet_names = [name for name in os.listdir(sheet_directory) if os.path.isfile(sheet_directory)]
+            # print sheet_names
+
+
+            capture_count += 1
+
+        counter += 1
 if __name__ == '__main__':
-    creat_file_dir()
+    # creat_file_dir()
+    main()
