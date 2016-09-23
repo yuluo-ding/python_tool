@@ -22,8 +22,6 @@ def creat_file_dir():
         os.makedirs('result/' + list_name)
 
 
-
-
 def count_file():
     file_name = [name for name in os.listdir('result/') if os.path.isdir(os.path.join('result/', name))]
     print file_name
@@ -31,16 +29,16 @@ def count_file():
 
 
 class Site:
-    _web_dir = ""
-    _name = ""
-    _xx_type = ""
-    _input_output = ""
+    __web_dir = ""
+    __name = ""
+    __xx_type = ""
+    __input_output = ""
 
     def __init__(self, web_dir, name, xx_type, input_output):
-        self._dir = web_dir
-        self._name = name
-        self._xx_type = xx_type
-        self._input_output = input_output
+        self.__dir = web_dir
+        self.__name = name
+        self.__xx_type = xx_type
+        self.__input_output = input_output
 
     def set_web_dir(self, web_dir):
         self._web_dir = web_dir
@@ -94,6 +92,11 @@ def generator():
         for c in content[i]:
             print c
 
+def check_typ(site_type):
+    if site_type.find("HTTPSHOP") != 0:
+        return "HTTPSHOP"
+    else:
+        return "Unknow"
 
 def main():
     name = ""
@@ -143,13 +146,6 @@ def main():
 
             capture_count += 1
 
-            # name = capture_names[capture_count]
-            # # print ("~~~~~~~~~~~~~~~~~~~~~~")
-            # print "\tCapture name:  " + name
-            # input = name
-            #
-            # sheet_directory = 'result/' + directories[counter]
-            # # print sheet_directory
         for i in file_content:
             if file_content.count(i) > 0:
                 files[i] = file_content.count(i)
@@ -171,6 +167,8 @@ def main():
                     xx_name = brand
                 elif name_divider == 2:
                     platform += file_name_list[name_counter]
+                elif name_divider == 3:
+                    version += file_name_list[name_counter]
                 else:
                     action += file_name_list[name_counter]
             name_counter += 1
@@ -186,7 +184,21 @@ def main():
         client_ip = brand = platform = version = action = ''
         capture_count += 1
 
-        counter += 1
+    xx_type = ""
+    site_type_counter = 0
+    for s in site_type:
+        if site_type[site_type_counter] != '_':
+            xx_type += site_type[site_type_counter]
+        else:
+            break
+        site_type_counter += 1
+
+    web_dir = './'
+    website = Site(web_dir, xx_name, xx_type, input_output)
+    generator(website)
+    input_output.clear()
+
+    counter += 1
 
 if __name__ == '__main__':
     # creat_file_dir()
