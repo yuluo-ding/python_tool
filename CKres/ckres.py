@@ -86,17 +86,69 @@ def generator():
         con += "[\n"
     counter = 0
     http_content = ""
-    ttk_flag = ""
-    ttk_info = ""
+    ttk_terminal_flag_content = ""
+    ttk_device_info_content = ""
     for i in content:
         for c in content[i]:
             print c
+            print content[i][c]
+            if c.find("TTKTERMINALFLAG") != -1:
+                if ttk_terminal_flag_content == "":
+                    ttk_terminal_flag_content += "{\"" + c + "\":" + str(content[i][c]) + "}"
+                else:
+                    ttk_terminal_flag_content += ",{\"" + c + "\":" + str(content[i][c]) + "}"
+            elif c.find("TTKDEVICEINFO") != -1:
+                if ttk_device_info_content == "":
+                    ttk_device_info_content += "{\"" + c + "\":" + str(content[i][c]) + "}"
+                else:
+                    ttk_device_info_content += ",{\"" + c + "\":" + str(content[i][c]) + "}"
+            else:
+                if http_content == "":
+                    http_content += "{\"" + c + "\":" + str(content[i][c]) + "}"
+                else:
+                    http_content += ",{\"" + c + "\":" + str(content[i][c]) + "}"
+        counter += 1
+        if counter == number:
+            con += "{\n\"input\":\n[\"" + i + \
+                   ".cap\"],\n\"output\":[{\n\"dir\":\"snspro:/ramdisk/front/output/yj_snp\",\n\"files\":[" \
+                       + http_content + "]\n}\n"
+            if ttk_terminal_flag_content != "":
+                con += ",{\n\"dir\":\"snspro:/ramdisk/front/output/or_ttk_flag\",\n\"files\":[" \
+                       + ttk_terminal_flag_content + "]\n}\n"
+            if ttk_device_info_content != "":
+                con += ",{\n\"dir\":\"snspro:/ramdisk/front/output/or_ttk_info\",\n\"files\":[" \
+                       + ttk_device_info_content + "]\n}\n"
+            con += "]\n}\n"
+        else:
+            con += "{\n\"input\":\n[\"" + i + \
+                   ".cap\"],\n\"output\":[{\n\"dir\":\"snspro:/ramdisk/front/output/yj_snp\",\n\"files\":[" \
+                   + http_content + "]\n}\n"
+            if ttk_terminal_flag_content != "":
+                con += ",{\n\"dir\":\"snspro:/ramdisk/front/output/or_ttk_flag\",\n\"files\":[" \
+                           + ttk_terminal_flag_content + "]\n}\n"
+            if ttk_device_info_content != "":
+                con += ",{\n\"dir\":\"snspro:/ramdisk/front/output/or_ttk_info\",\n\"files\":[" \
+                           + ttk_device_info_content + "]\n}\n"
+            con += "]\n},\n"
+
+        http_content = ""
+        ttk_device_info_content = ""
+        ttk_terminal_flag_content = ""
+
+    if number > 1:
+        con += "]\n"
+    con += "}\n}"
+
+    file.write(con)
+    file.close()
+    return 0
 
 def check_typ(site_type):
     if site_type.find("HTTPSHOP") != 0:
         return "HTTPSHOP"
     else:
         return "Unknow"
+
 
 def main():
     name = ""
@@ -194,7 +246,7 @@ def main():
         site_type_counter += 1
 
     web_dir = './'
-    website = Site(web_dir, xx_name, xx_type, input_output)
+    website = Site(web_dir, name, xx_type, input_output)
     generator(website)
     input_output.clear()
 
