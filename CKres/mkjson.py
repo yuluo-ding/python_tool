@@ -137,7 +137,7 @@ def find_msg():
                         xx_name = brand
                     elif name_divider == 2:
                         platform += name[name_counter]
-                        print platform
+                        # print platform
                     elif name_divider == 3:
                         version += name[name_counter]
                     else:
