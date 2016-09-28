@@ -19,6 +19,8 @@ class Site:
         return self.__site_name
 
 
+
+
 def creat_web_dir():
     path = os.path.abspath("android")
     print path
@@ -67,6 +69,7 @@ def find_msg():
     files = {}
     site_type = ""
     client_ip = brand = platform = version = action = ''
+    result_lists = []
 
     directories = [name for name in os.listdir('./') if os.path.isdir(os.path.join('./' + name))]
     print directories
@@ -107,12 +110,12 @@ def find_msg():
                 sheet_counter += 1
 
             n = Counter(file_content)
-            lists=[]
+
             for k, v in n.items():
                 sm = {}
                 sm[k] = v
-                lists.append(sm)
-            print lists
+                result_lists.append(sm)
+            print result_lists
 
                 # print Counter(file_content)
             for i in file_content:
@@ -163,6 +166,8 @@ def find_msg():
 
         web_dir = './' + tmp + '/'
         counter += 1
+
+
 
 
 if __name__ == '__main__':
