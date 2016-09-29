@@ -9,16 +9,41 @@ from collections import Counter
 class Site:
     __site_name = ""
 
-    def __init__(self, site_name):
-        self.__site_name = site_name
+    def __init__(self,web_dir, name, xx_type, input_output):
+        self.__web_dir = web_dir
+        self.__name = name
+        self.__xx_type = xx_type
+        self.__input_output = input_output
 
-    def set_name(self, site_name):
-        self.set_name = site_name
+    def set_web_dir(self, web_dir):
+        self.__web_dir = web_dir
 
-    def get_name(self, site_name):
-        return self.__site_name
+    def get_web_dir(self):
+        return self.__web_dir
 
+    def set_name(self, name):
+        self.__name = name
 
+    def get_name(self):
+        return self.__name
+
+    def set_xx_type(self, xx_type):
+        self.__xx_type = xx_type
+
+    def get_xx_type(self):
+        return self.__xx_type
+
+    def set_input_output(self, input_output):
+        self.__input_output = input_output
+
+    def get_input_output(self):
+        return self.__input_output
+
+def type_check(site_type):
+    if site_type.find("BBS") != 0:
+        return "BBS"
+    else:
+        return "Unknown Type"
 
 
 def creat_web_dir():
@@ -60,6 +85,48 @@ def creat_web_dir():
         os.makedirs(site_name + '/result/' + list_name)
 
 
+def generator(website):
+    json_file = website.get_web_dir() + website.get_name().lower() + ".json"
+    file = open(json_file, "w")
+    i_o_content_before = website.get_input_output()
+    print i_o_content_before
+    number = len(i_o_content_before)
+
+    value_lists = []
+    i_o_content = {}
+
+    for i in i_o_content_before:
+        n = Counter(i_o_content_before[i]).items()
+        # print n
+        for k,v in n:
+            sm = {}
+            sm[k] = v
+            value_lists.append(sm)
+        # print value_lists
+        i_o_content[i] = value_lists
+        value_lists = []
+    print i_o_content
+
+    content = "{\"" + website.get_name() + "\":\n"
+    content += "{\n"
+    content += "\"bin\":\n"
+    content += "[\"device:/com/roles/front/app/yjhp/yj_hp\",\"snspro:/com/roles/snspro/httpextractor/yj_snp\"],\n"
+    content += "\"config\":\n"
+    content += "[\"device:/com/cfg/yj_hp_in.conf\",\n"
+    content += "\"device:/com/cfg/yj_hp_output.conf\",\n"
+    content += "\"snspro:/com/cfg/yj_snp_extract.conf\",\n"
+    content += "\"snspro:/com/cfg/yj_snp_output.conf\"],\n"
+    content += "\"input_outputs\":"
+    if number > 1:
+        content += "[\n"
+    counter = 0
+    http_content = ""
+    ttk_terminal_flag_content = ""
+    ttk_device_info_content = ""
+
+    file.write(content)
+    file.close()
+
 def find_msg():
     name = ""
     input_output = {}
@@ -67,12 +134,13 @@ def find_msg():
     file_content = []
     file_content_list = ""
     files = {}
-    site_type = ""
     client_ip = brand = platform = version = action = ''
     result_lists = []
+    site_type = ""
 
     directories = [name for name in os.listdir('./') if os.path.isdir(os.path.join('./' + name))]
-    print directories
+    # print directories
+
 
     counter = 0
     for d in directories:
@@ -115,7 +183,10 @@ def find_msg():
                 sm = {}
                 sm[k] = v
                 result_lists.append(sm)
-            print result_lists
+            # print result_lists
+
+            result_lists = []
+            # file_content = []
 
                 # print Counter(file_content)
             for i in file_content:
@@ -131,28 +202,21 @@ def find_msg():
             for b in name:
                 if name[name_counter] == '_':
                     name_divider += 1
+
                 if name[name_counter] != '_':
                     if name_divider == 0:
                         client_ip += name[name_counter]
-                        # print client_ip
                     elif name_divider == 1:
                         brand += name[name_counter]
                         xx_name = brand
                     elif name_divider == 2:
                         platform += name[name_counter]
-                        # print platform
                     elif name_divider == 3:
                         version += name[name_counter]
                     else:
                         action += name[name_counter]
                 name_counter += 1
 
-            # print("\n\tIP:\t" + client_ip)
-            # print("\tType:\t" + brand)
-            # print("\tPlatform:\t" + platform)
-            # print("\tVersion:\t" + version)
-            # print("\tAction:\t" + action)
-            client_ip = brand = platform = version = action = ''
             capture_counter += 1
 
         xx_type = ""
@@ -163,10 +227,15 @@ def find_msg():
             else:
                 break
             site_type_counter += 1
+        print xx_type
+        # print xx_name
 
         web_dir = './' + tmp + '/'
-        counter += 1
+        website = Site(web_dir, name, xx_type, input_output)
+        generator(website)
+        input_output.clear()
 
+        counter += 1
 
 
 
