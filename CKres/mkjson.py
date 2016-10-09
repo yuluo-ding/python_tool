@@ -7,9 +7,8 @@ from collections import Counter
 
 
 class Site:
-    __site_name = ""
 
-    def __init__(self,web_dir, name, xx_type, input_output):
+    def __init__(self, web_dir, name, xx_type, input_output):
         self.__web_dir = web_dir
         self.__name = name
         self.__xx_type = xx_type
@@ -86,7 +85,7 @@ def creat_web_dir():
 
 
 def generator(website):
-    json_file = website.get_web_dir() + website.get_name().lower() + ".json"
+    json_file = website.get_web_dir() + ".json"
     file = open(json_file, "w")
     i_o_content_before = website.get_input_output()
     print i_o_content_before
@@ -230,7 +229,7 @@ def find_msg():
         print xx_type
         # print xx_name
 
-        web_dir = './' + tmp + '/'
+        web_dir = './' + directories[counter] + '/'
         website = Site(web_dir, name, xx_type, input_output)
         generator(website)
         input_output.clear()
