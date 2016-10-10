@@ -88,8 +88,9 @@ def generator(website):
     json_file = website.get_web_dir() + ".json"
     file = open(json_file, "w")
     i_o_content_before = website.get_input_output()
-    print i_o_content_before
+    print  i_o_content_before
     number = len(i_o_content_before)
+    # print number
 
     value_lists = []
     i_o_content = {}
@@ -123,8 +124,65 @@ def generator(website):
     ttk_terminal_flag_content = ""
     ttk_device_info_content = ""
 
+    for i in i_o_content_before:
+        print i
+        for c in i_o_content_before[i]:
+            print c
+            print i_o_content_before[i][c]
+            if c.find("TTKTERMINALFLAG") != -1:
+                if ttk_terminal_flag_content == "":
+                    ttk_terminal_flag_content += "{\"" + c + "\":" + str(i_o_content_before[i][c]) + "}"
+                else:
+                    ttk_terminal_flag_content += ",{\"" + c + "\":" + str(i_o_content_before[i][c]) + "}"
+            elif c.find("TTKDEVICEINFO") != -1:
+                if ttk_device_info_content == "":
+                    ttk_device_info_content += "{\"" + c + "\":" + str(i_o_content_before[i][c]) + "}"
+                else:
+                    ttk_device_info_content += ",{\"" + c + "\":" + str(i_o_content_before[i][c]) + "}"
+            else:
+                if http_content == "":
+                    http_content += "{\"" + c + "\":" + str(i_o_content_before[i][c]) + "}"
+                else:
+                    http_content += ",{\"" + c + "\":" + str(i_o_content_before[i][c]) + "}"
+
+
+        counter += 1
+        if counter == number:
+            content += "{\n\"input\":\n[\"" + i + \
+                       ".cap\"],\n\"output\":[{\n\"dir\":\"snspro:/ramdisk/front/output/yj_snp\",\n\"files\":[" \
+                       + http_content + "]\n}\n"
+            if ttk_terminal_flag_content != "":
+                content += ",{\n\"dir\":\"snspro:/ramdisk/front/output/or_ttk_flag\",\n\"files\":[" \
+                           + ttk_terminal_flag_content + "]\n}\n"
+            if ttk_device_info_content != "":
+                content += ",{\n\"dir\":\"snspro:/ramdisk/front/output/or_ttk_info\",\n\"files\":[" \
+                           + ttk_device_info_content + "]\n}\n"
+            content += "]\n}\n"
+        else:
+            content += "{\n\"input\":\n[\"" + i + \
+                       ".cap\"],\n\"output\":[{\n\"dir\":\"snspro:/ramdisk/front/output/yj_snp\",\n\"files\":[" \
+                       + http_content + "]\n}\n"
+            if ttk_terminal_flag_content != "":
+                content += ",{\n\"dir\":\"snspro:/ramdisk/front/output/or_ttk_flag\",\n\"files\":[" \
+                           + ttk_terminal_flag_content + "]\n}\n"
+            if ttk_device_info_content != "":
+                content += ",{\n\"dir\":\"snspro:/ramdisk/front/output/or_ttk_info\",\n\"files\":[" \
+                           + ttk_device_info_content + "]\n}\n"
+            content += "]\n},\n"
+
+        http_content = ""
+        ttk_terminal_flag_content = ""
+        ttk_device_info_content = ""
+
+    if number > 1:
+        content += "]\n"
+    content += "}\n}"
+
     file.write(content)
     file.close()
+
+    return 0
+
 
 def find_msg():
     name = ""
