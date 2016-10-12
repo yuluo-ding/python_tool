@@ -49,13 +49,6 @@ class Site:
     def get_input_output(self):
         return self.__input_output
 
-def type_check(site_type):
-    if site_type.find("BBS") != 0:
-        return "BBS"
-    else:
-        return "Unknown Type"
-
-
 def creat_web_dir():
     path = os.path.abspath("android")
     print path
