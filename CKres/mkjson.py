@@ -1,18 +1,29 @@
 # /user/bin/python
-# -*- coding:utf-8 -*-
+# -*- coding: utf-8 -*-
 import glob
 import os
 import shutil
 from collections import Counter
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 
 class Site:
 
-    def __init__(self, web_dir, name, xx_type, input_output):
+    def __init__(self, web_dir, name, xx_type, input_output, tmp):
         self.__web_dir = web_dir
         self.__name = name
         self.__xx_type = xx_type
         self.__input_output = input_output
+        self.__tmp = tmp
+
+    def set_tmp(self, tmp):
+        self.__tmp = tmp
+
+    def get_tmp(self):
+        return self.__tmp
 
     def set_web_dir(self, web_dir):
         self.__web_dir = web_dir
@@ -85,8 +96,9 @@ def creat_web_dir():
 
 
 def generator(website):
-    json_file = website.get_web_dir() + ".json"
-    file = open(json_file, "w")
+    print website.get_tmp()
+    path = os.path.join(website.get_tmp() + website.get_name() + ".json")
+    file = open(path, "w")
     i_o_content_before = website.get_input_output()
     print  i_o_content_before
     number = len(i_o_content_before)
@@ -187,28 +199,31 @@ def generator(website):
 def find_msg():
     name = ""
     input_output = {}
-    input = ""
     file_content = []
     file_content_list = ""
     files = {}
     client_ip = brand = platform = version = action = ''
     result_lists = []
     site_type = ""
+    global xx_name
+    xx_name = ""
 
     directories = [name for name in os.listdir('./') if os.path.isdir(os.path.join('./' + name))]
-    # print directories
+    print directories
 
 
     counter = 0
     for d in directories:
-        tmp = unicode(directories[counter], 'gb2312')
-        subdirectory = './' + tmp + '/result/'
+        tmp1 = unicode(directories[counter], 'gb2312')
+        subdirectory = './' + tmp1 + '/result/'
+        tmp = './' + unicode(directories[counter], 'gb2312') + '/'
         print subdirectory
 
         capture_name = [name for name in os.listdir(subdirectory) if os.path.isdir(os.path.join(subdirectory, name))]
         capture_counter = 0
         for c in capture_name:
             name = capture_name[capture_counter]
+
             input = name
             sheet_directory = './' + tmp + '/result/' + name + '/'
             sheet_names = [name for name in os.listdir(sheet_directory) if os.path.isfile(os.path.join(sheet_directory, name))]
@@ -254,9 +269,13 @@ def find_msg():
             file_content = []
             files = {}
 
+            file_name_list = capture_name[capture_counter].split('_')
+            xx_name = file_name_list[1]
+
             name_counter = 0
             name_divider = 0
             for b in name:
+
                 if name[name_counter] == '_':
                     name_divider += 1
 
@@ -266,6 +285,7 @@ def find_msg():
                     elif name_divider == 1:
                         brand += name[name_counter]
                         xx_name = brand
+                        # print xx_name
                     elif name_divider == 2:
                         platform += name[name_counter]
                     elif name_divider == 3:
@@ -288,12 +308,11 @@ def find_msg():
         # print xx_name
 
         web_dir = './' + directories[counter] + '/'
-        website = Site(web_dir, name, xx_type, input_output)
+        website = Site(web_dir, xx_name, xx_type, input_output, tmp)
         generator(website)
         input_output.clear()
 
         counter += 1
-
 
 
 if __name__ == '__main__':
