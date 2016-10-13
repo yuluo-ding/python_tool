@@ -9,7 +9,6 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
 
-
 class Site:
 
     def __init__(self, web_dir, name, xx_type, input_output, tmp):
@@ -88,11 +87,12 @@ def creat_web_dir():
 
 
 def generator(website):
-    print website.get_tmp()
+    # print website.get_tmp()
+    print website.get_name()
     path = os.path.join(website.get_tmp() + website.get_name() + ".json")
     file = open(path, "w")
     i_o_content_before = website.get_input_output()
-    print  i_o_content_before
+    # print  i_o_content_before
     number = len(i_o_content_before)
     # print number
 
@@ -109,7 +109,7 @@ def generator(website):
         # print value_lists
         i_o_content[i] = value_lists
         value_lists = []
-    print i_o_content
+    # print i_o_content
 
     content = "{\"" + website.get_name() + "\":\n"
     content += "{\n"
@@ -132,7 +132,7 @@ def generator(website):
         print i
         for c in i_o_content_before[i]:
             print c
-            print i_o_content_before[i][c]
+            # print i_o_content_before[i][c]
             if c.find("TTKTERMINALFLAG") != -1:
                 if ttk_terminal_flag_content == "":
                     ttk_terminal_flag_content += "{\"" + c + "\":" + str(i_o_content_before[i][c]) + "}"
@@ -149,29 +149,22 @@ def generator(website):
                 else:
                     http_content += ",{\"" + c + "\":" + str(i_o_content_before[i][c]) + "}"
 
-
         counter += 1
         if counter == number:
             content += "{\n\"input\":\n[\"" + i + \
                        ".cap\"],\n\"output\":[{\n\"dir\":\"snspro:/ramdisk/front/output/yj_snp\",\n\"files\":[" \
                        + http_content + "]\n}\n"
-            if ttk_terminal_flag_content != "":
+            if ttk_terminal_flag_content != "" or ttk_device_info_content != "":
                 content += ",{\n\"dir\":\"snspro:/ramdisk/front/output/yj_snp_ttk\",\n\"files\":[" \
-                           + ttk_terminal_flag_content + "]\n}\n"
-            if ttk_device_info_content != "":
-                content += ",{\n\"dir\":\"snspro:/ramdisk/front/output/yj_snp_ttk\",\n\"files\":[" \
-                           + ttk_device_info_content + "]\n}\n"
+                           + ttk_terminal_flag_content + ",]n" + ttk_device_info_content + "]\n}\n"
             content += "]\n}\n"
         else:
             content += "{\n\"input\":\n[\"" + i + \
                        ".cap\"],\n\"output\":[{\n\"dir\":\"snspro:/ramdisk/front/output/yj_snp\",\n\"files\":[" \
                        + http_content + "]\n}\n"
-            if ttk_terminal_flag_content != "":
+            if ttk_terminal_flag_content != "" or ttk_device_info_content != "":
                 content += ",{\n\"dir\":\"snspro:/ramdisk/front/output/yj_snp_ttk\",\n\"files\":[" \
-                           + ttk_terminal_flag_content + "]\n}\n"
-            if ttk_device_info_content != "":
-                content += ",{\n\"dir\":\"snspro:/ramdisk/front/output/yj_snp_ttk\",\n\"files\":[" \
-                           + ttk_device_info_content + "]\n}\n"
+                           + ttk_terminal_flag_content + ",]n" + ttk_device_info_content + "]\n}\n"
             content += "]\n},\n"
 
         http_content = ""
@@ -201,8 +194,6 @@ def find_msg():
     xx_name = ""
 
     directories = [name for name in os.listdir('./') if os.path.isdir(os.path.join('./' + name))]
-    print directories
-
 
     counter = 0
     for d in directories:
@@ -213,6 +204,10 @@ def find_msg():
 
         capture_name = [name for name in os.listdir(subdirectory) if os.path.isdir(os.path.join(subdirectory, name))]
         capture_counter = 0
+
+        file_name_list = capture_name[capture_counter].split('_')
+        xx_name = file_name_list[1]
+
         for c in capture_name:
             name = capture_name[capture_counter]
 
@@ -252,7 +247,6 @@ def find_msg():
             result_lists = []
             # file_content = []
 
-                # print Counter(file_content)
             for i in file_content:
                 if file_content.count(i) > 0:
                     files[i] = file_content.count(i)
@@ -261,16 +255,9 @@ def find_msg():
             file_content = []
             files = {}
 
-            file_name_list = capture_name[capture_counter].split('_')
-            print file_name_list[1]
-            for f in file_name_list:
-                xx_name = f[1]
-                pass
-
             name_counter = 0
             name_divider = 0
             for b in name:
-
                 if name[name_counter] == '_':
                     name_divider += 1
 
@@ -279,8 +266,6 @@ def find_msg():
                         client_ip += name[name_counter]
                     elif name_divider == 1:
                         brand += name[name_counter]
-                        xx_name = brand
-                        # print xx_name
                     elif name_divider == 2:
                         platform += name[name_counter]
                     elif name_divider == 3:
@@ -299,7 +284,7 @@ def find_msg():
             else:
                 break
             site_type_counter += 1
-        print xx_type
+        # print xx_type
         # print xx_name
 
         web_dir = './' + directories[counter] + '/'
@@ -309,10 +294,7 @@ def find_msg():
 
         counter += 1
 
-
 if __name__ == '__main__':
-    # creat_web_dir()
-    # find_msg()
 
     f = []
     count = 0
@@ -332,4 +314,4 @@ if __name__ == '__main__':
     if count == 0:
         creat_web_dir()
     else:
-        pass
+        find_msg()
