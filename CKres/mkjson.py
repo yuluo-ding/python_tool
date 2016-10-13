@@ -9,8 +9,8 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
 
-class Site:
 
+class Site:
     def __init__(self, web_dir, name, xx_type, input_output, tmp):
         self.__web_dir = web_dir
         self.__name = name
@@ -47,6 +47,7 @@ class Site:
 
     def get_input_output(self):
         return self.__input_output
+
 
 def creat_web_dir():
     list_name = glob.glob('*.xmpf')
@@ -102,7 +103,7 @@ def generator(website):
     for i in i_o_content_before:
         n = Counter(i_o_content_before[i]).items()
         # print n
-        for k,v in n:
+        for k, v in n:
             sm = {}
             sm[k] = v
             value_lists.append(sm)
@@ -129,7 +130,7 @@ def generator(website):
     ttk_device_info_content = ""
 
     for i in i_o_content_before:
-        print i
+        # print i
         for c in i_o_content_before[i]:
             print c
             # print i_o_content_before[i][c]
@@ -174,10 +175,8 @@ def generator(website):
     if number > 1:
         content += "]\n"
     content += "}\n}"
-
     file.write(content)
     file.close()
-
     return 0
 
 
@@ -185,7 +184,6 @@ def find_msg():
     name = ""
     input_output = {}
     file_content = []
-    file_content_list = ""
     files = {}
     client_ip = brand = platform = version = action = ''
     result_lists = []
@@ -213,7 +211,8 @@ def find_msg():
 
             input = name
             sheet_directory = './' + tmp + '/result/' + name + '/'
-            sheet_names = [name for name in os.listdir(sheet_directory) if os.path.isfile(os.path.join(sheet_directory, name))]
+            sheet_names = [name for name in os.listdir(sheet_directory) if
+                           os.path.isfile(os.path.join(sheet_directory, name))]
             # print sheet_names
 
             sheet_counter = 0
@@ -224,12 +223,12 @@ def find_msg():
                 line_counter = 0
                 for line in sheet_content:
                     if line.find("Protocol") != -1:
-                        protocol = str(line)[0:len(str(line))-1]
+                        protocol = str(line)[0:len(str(line)) - 1]
                         # print line
                     elif line.find("Domain") != -1:
-                        domain = str(line)[0:len(str(line))-1]
+                        domain = str(line)[0:len(str(line)) - 1]
                     elif line.find("XX-Type") != -1:
-                        action_type = str(line)[0:len(str(line))-1]
+                        action_type = str(line)[0:len(str(line)) - 1]
                         site_type = action_type[8:]
                     line_counter += 1
                 file_content_list = protocol + " " + domain + " " + action_type
@@ -284,8 +283,6 @@ def find_msg():
             else:
                 break
             site_type_counter += 1
-        # print xx_type
-        # print xx_name
 
         web_dir = './' + directories[counter] + '/'
         website = Site(web_dir, xx_name, xx_type, input_output, tmp)
@@ -294,8 +291,8 @@ def find_msg():
 
         counter += 1
 
-if __name__ == '__main__':
 
+if __name__ == '__main__':
     f = []
     count = 0
 
