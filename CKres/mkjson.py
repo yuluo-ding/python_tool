@@ -50,11 +50,9 @@ class Site:
         return self.__input_output
 
 def creat_web_dir():
-    path = os.path.abspath("android")
-    print path
     list_name = glob.glob('*.xmpf')
     file_name = list_name[0]
-    print file_name
+    # print file_name
 
     file = open(file_name, 'rt')
     line_file = file.readlines()
@@ -69,7 +67,8 @@ def creat_web_dir():
                 os.mkdir(site_name)
 
     cap_name = glob.glob('*.cap')
-    print cap_name
+    # 打印数据包名
+    # print cap_name
     for cap in cap_name:
         shutil.copy(cap, site_name)
 
@@ -79,7 +78,7 @@ def creat_web_dir():
         os.makedirs(site_name + '/result/')
 
     list_cap = glob.glob('*.cap')
-    print list_cap
+    # print list_cap
 
     shutil.rmtree(site_name + '/result')
     for list in list_cap:
@@ -157,10 +156,10 @@ def generator(website):
                        ".cap\"],\n\"output\":[{\n\"dir\":\"snspro:/ramdisk/front/output/yj_snp\",\n\"files\":[" \
                        + http_content + "]\n}\n"
             if ttk_terminal_flag_content != "":
-                content += ",{\n\"dir\":\"snspro:/ramdisk/front/output/or_ttk_flag\",\n\"files\":[" \
+                content += ",{\n\"dir\":\"snspro:/ramdisk/front/output/yj_snp_ttk\",\n\"files\":[" \
                            + ttk_terminal_flag_content + "]\n}\n"
             if ttk_device_info_content != "":
-                content += ",{\n\"dir\":\"snspro:/ramdisk/front/output/or_ttk_info\",\n\"files\":[" \
+                content += ",{\n\"dir\":\"snspro:/ramdisk/front/output/yj_snp_ttk\",\n\"files\":[" \
                            + ttk_device_info_content + "]\n}\n"
             content += "]\n}\n"
         else:
@@ -168,10 +167,10 @@ def generator(website):
                        ".cap\"],\n\"output\":[{\n\"dir\":\"snspro:/ramdisk/front/output/yj_snp\",\n\"files\":[" \
                        + http_content + "]\n}\n"
             if ttk_terminal_flag_content != "":
-                content += ",{\n\"dir\":\"snspro:/ramdisk/front/output/or_ttk_flag\",\n\"files\":[" \
+                content += ",{\n\"dir\":\"snspro:/ramdisk/front/output/yj_snp_ttk\",\n\"files\":[" \
                            + ttk_terminal_flag_content + "]\n}\n"
             if ttk_device_info_content != "":
-                content += ",{\n\"dir\":\"snspro:/ramdisk/front/output/or_ttk_info\",\n\"files\":[" \
+                content += ",{\n\"dir\":\"snspro:/ramdisk/front/output/yj_snp_ttk\",\n\"files\":[" \
                            + ttk_device_info_content + "]\n}\n"
             content += "]\n},\n"
 
@@ -263,7 +262,10 @@ def find_msg():
             files = {}
 
             file_name_list = capture_name[capture_counter].split('_')
-            xx_name = file_name_list[1]
+            print file_name_list[1]
+            for f in file_name_list:
+                xx_name = f[1]
+                pass
 
             name_counter = 0
             name_divider = 0
@@ -310,4 +312,24 @@ def find_msg():
 
 if __name__ == '__main__':
     # creat_web_dir()
-    find_msg()
+    # find_msg()
+
+    f = []
+    count = 0
+
+    for (dirpath, dirnames, filenames) in os.walk(os.getcwd()):
+        f = filenames + dirnames
+        break
+    print f
+
+    for e in f:
+        # print e
+        if os.path.isfile(os.path.join(e)):
+            pass
+        else:
+            count += 1
+    print count
+    if count == 0:
+        creat_web_dir()
+    else:
+        pass

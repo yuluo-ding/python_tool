@@ -1,9 +1,0 @@
-XX-Protocol:HTTPSHOP
-XX-Domain:jumei
-XX-Type:SHOPPING_LOGIN
-XX-Client:192.168.61.1
-XX-Platform:Android
-XX-Version:1.0
-XX-Action:MSG
-XX-SiteType:HTTPSHOP
-XX-SiteName:聚美
