@@ -1,5 +1,6 @@
 # /user/bin/python
 # -*- coding: utf-8 -*-
+import os
 import re
 from os import listdir
 from os.path import isfile, join
@@ -30,6 +31,5 @@ def check_user_agent(file):
             shutil.copy(file, dst)
         else:
             pass
-
 
 list_dir(path)
