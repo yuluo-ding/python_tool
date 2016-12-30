@@ -10,25 +10,44 @@ path = 'D:\\xuexi\\Python\\python_tool\\CKout\\test'
 dst = "dst"
 
 
+
 def list_dir(path):
     file_list = (f for f in listdir(path) if isfile(join(path, f)))
+    if file_list == None:
+        print 'no file \n'
+    else:
+        print 'is checking...'
 
     for f in file_list:
         print f
         file_path = join(path, f)
         check_user_agent(file_path)
-        # print type(f)
+        os.remove(file_path)
+        print file_path
 
 
 def check_user_agent(file):
 
     with open(file, 'r') as f:
         data = f.read()
-        pattern = r"UserAgent:([^\s]*)"
+        pattern = r"XX-UserAgent:([^\n]*)"
         match = re.search(pattern, data)
-        # result = match.group()
+        print match
+
+        isExists = os.path.exists(dst)
+        if not isExists:
+            os.mkdir(dst)
+            return
+        else:
+            pass
+
         if match:
-            shutil.copy(file, dst)
+            a = match.group()
+            a = a.split(r"\r\n")[0]
+            b = a.split(":")[1]
+
+            if b == 'out':
+                shutil.copy(file, dst)
         else:
             pass
 
