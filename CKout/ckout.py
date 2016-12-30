@@ -9,8 +9,6 @@ import shutil
 path = 'D:\\xuexi\\Python\\python_tool\\CKout\\test'
 dst = "dst"
 
-
-
 def list_dir(path):
     file_list = (f for f in listdir(path) if isfile(join(path, f)))
     if file_list == None:
