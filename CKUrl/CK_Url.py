@@ -3,11 +3,25 @@
 import re
 
 
-class CUrlCategories(object):
-    out = {}
-
-    def __init__(self, path):
+class CCategoryBase(object):
+    def __init__(self, path=''):
         self.path = path
+
+    def Init(self):
+        pass
+
+    def ReadCategory(self):
+        pass
+
+    def CheckUrlCategories(self):
+        pass
+
+    def CheckHostCategories(self):
+        pass
+
+
+class CUrlCategories(CCategoryBase):
+    out = {}
 
     # 将输入文件读取内存中,返回字典
     def ReadToMemory(self):
@@ -39,9 +53,18 @@ class CUrlCategories(object):
     def CheckUrlCategories(self, inUrl, out):
         if out.has_key(inUrl):
             a = out[inUrl]
-            print a
+            print {self.path: a}
         else:
             return "not has this url"
+
+class CheckResult(object):
+    result = {}
+
+    def __init__(self):
+        self.result = {}
+
+    def __add__(self, added = None):
+        pass
 
 
 
