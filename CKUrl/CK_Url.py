@@ -2,22 +2,8 @@
 # -*- coding:utf-8 -*-
 import re
 
-
-class CCategoryBase(object):
-    def __init__(self, path=''):
-        self.path = path
-
-    def Init(self):
-        pass
-
-    def ReadCategory(self):
-        pass
-
-    def CheckUrlCategories(self):
-        pass
-
-    def CheckHostCategories(self):
-        pass
+from CCategoryBase import CCategoryBase
+from CheckResult import CheckResult
 
 
 class CUrlCategories(CCategoryBase):
@@ -53,25 +39,19 @@ class CUrlCategories(CCategoryBase):
     def CheckUrlCategories(self, inUrl, out):
         if out.has_key(inUrl):
             a = out[inUrl]
-            print {self.path: a}
+            b_dic = {self.path: a}
+            return a
         else:
             return "not has this url"
-
-class CheckResult(object):
-    result = {}
-
-    def __init__(self):
-        self.result = {}
-
-    def __add__(self, added = None):
-        pass
-
 
 
 def test():
     testUrlCate = CUrlCategories("test")
     out = testUrlCate.ReadToMemory()
-    testUrlCate.CheckUrlCategories("www.sina.com", out)
+    d = testUrlCate.CheckUrlCategories("www.sina.com", out)
+    b = CheckResult()
+    b.result["alexa.txt"] = set(d)
+    b.output()
 
 
 if __name__ == '__main__':
