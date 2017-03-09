@@ -25,3 +25,16 @@ class CheckResult(object):
 
     def output(self):
         print self.result
+
+def test():
+    a = CheckResult()
+    b = CheckResult()
+    a.result['a_jjj'] = set('b')
+    b.result['b_xxx'] = set('b')
+    a.result['b_jjj'] = set(['cb'])
+    b.result['a_jjj'] = set(['cb'])
+    a.output()
+    b.output()
+    a = a + b
+
+    a.output()

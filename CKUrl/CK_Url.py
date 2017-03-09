@@ -32,26 +32,25 @@ class CUrlCategories(CCategoryBase):
 
         except BaseException as e:
             print e
-        out = url_dict
-        return out
+        self.out = url_dict
 
     # 完成 url 检查，并输出最终的字典
-    def CheckUrlCategories(self, inUrl, out):
-        if out.has_key(inUrl):
-            a = out[inUrl]
-            b_dic = {self.path: a}
-            return a
+    def CheckUrlCategories(self, inUrl, outCategories):
+        # print self.out
+        if self.out.has_key(inUrl):
+            a = self.out[inUrl]
+            outCategories[self.path] = a
         else:
-            return "not has this url"
+            # print "not has this url"
+            pass
 
 
 def test():
-    testUrlCate = CUrlCategories("test")
-    out = testUrlCate.ReadToMemory()
-    d = testUrlCate.CheckUrlCategories("www.sina.com", out)
-    b = CheckResult()
-    b.result["alexa.txt"] = set(d)
-    b.output()
+    testUrlCate = CUrlCategories("test1")
+    testUrlCate.ReadToMemory()
+    outCategories = {}
+    testUrlCate.CheckUrlCategories("0-money.us", outCategories)
+    print outCategories
 
 
 if __name__ == '__main__':
